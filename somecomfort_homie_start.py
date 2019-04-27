@@ -15,6 +15,5 @@ try:
     while True:
         time.sleep(10)
 
-
 except (KeyboardInterrupt, SystemExit):
     print("Quitting.")     

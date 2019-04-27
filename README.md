@@ -4,7 +4,11 @@ Homie 3 implementation of Honeywell Total Connect Comfort for North American mod
 
 Uses the somecomfort library (https://github.com/kk7ds/somecomfort)
 
-Install using pip install Somecomfort-Homie-3
+Install using 
+
+```
+pip install Somecomfort-Homie-3
+```
 
 Configure by creating somecomfort_homie.yml using the following settings:
 
