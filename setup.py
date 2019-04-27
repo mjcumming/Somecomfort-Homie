@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 
 setuptools.setup(name='Somecomfort Homie 3',
-      version='0.0.2',
+      version='0.0.3',
       description='Homie 3 for Honeywell Total Comfort North America',
       author='Michael Cumming',
       author_email='mike@4831.com',
@@ -13,7 +13,7 @@ setuptools.setup(name='Somecomfort Homie 3',
       long_description_content_type="text/markdown",      
       url='https://github.com/mjcumming/Homie',
       keywords = ['HOMIE','MQTT','Somecomfort','Honeywell'],  
-      packages=setuptools.find_packages(exclude=("test",)),
+      packages=setuptools.find_packages(exclude=("test.py",)),
       classifiers=[
             "Programming Language :: Python :: 3",
             "License :: OSI Approved :: MIT License",
