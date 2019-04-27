@@ -1,18 +1,16 @@
 #!/usr/bin/env python
 
 import time
+import yaml 
 
 from somecomfort_homie import Somecomfort_Homie
 
-mqtt_settings = {
-    'MQTT_BROKER' : 'QueenMQTT',
-    'MQTT_PORT' : 1883,
-}
+with open("somecomfort_homie.yml", 'r') as ymlfile:
+    cfg = yaml.full_load(ymlfile)
 
-     
 try:
 
-    sch = Somecomfort_Homie(username='mike@4831.com',password='Minaki17',mqtt_settings=mqtt_settings)
+    sch = Somecomfort_Homie(username=cfg['somecomfort'] ['username'],password=cfg['somecomfort'] ['password'],mqtt_settings=cfg['mqtt'])
     
     while True:
         time.sleep(10)

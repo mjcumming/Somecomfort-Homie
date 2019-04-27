@@ -21,6 +21,7 @@ setuptools.setup(name='Somecomfort Homie 3',
       ],      
     install_requires=[
         'Homie3',
-        'somecomfort'
+        'somecomfort',
+        'pyyaml'
     ]      
 )

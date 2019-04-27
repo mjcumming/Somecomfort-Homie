@@ -24,7 +24,7 @@ HOMIE_SETTINGS = {
     'version' : '3.0.1',
     'topic' : 'homie', 
     'fw_name' : 'somecomfort',
-    'fw_version' : '0.0.1', 
+    'fw_version' : '0.0.3', 
     'update_interval' : 60, 
     'implementation' : 'HomieV3', 
 }
