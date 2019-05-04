@@ -11,7 +11,7 @@ from homie.node.property.property_string import Property_String
 
 
 FAN_MODES = ['auto', 'on', 'circulate']
-SYSTEM_MODES = ['heat', 'off', 'cool']
+SYSTEM_MODES = ['heat', 'off', 'cool','auto']
 HOLD_MODES = ['schedule', 'temporary', 'permanent'] 
 
 

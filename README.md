@@ -10,7 +10,9 @@ Install using
 pip install Somecomfort-Homie-3
 ```
 
-Configure by creating somecomfort_homie.yml using the following settings:
+To start as a service on raspbian 
+
+Create somecomfort_homie.yml in /etc using the following settings:
 
 ```yaml
 somecomfort:
@@ -22,4 +24,21 @@ mqtt:
   MQTT_PORT: 1883
   MQTT_USERNAME: null
   MQTT_PASSWORD: null
+```
+
+Create somecomfort-homie.service in /etc/systemd/system
+
+```service
+[Unit]
+Description=Somecomfort Homie
+After=multi-user.target
+
+[Service]
+User=pi
+Type=simple
+ExecStart=/usr/bin/python3 /usr/local/bin/somecomfort_homie_start.py
+Restart=on-abort
+
+[Install]
+WantedBy=multi-user.target
 ```
