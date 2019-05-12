@@ -5,7 +5,7 @@ import yaml
 
 from somecomfort_homie import Somecomfort_Homie
 
-with open("./etc/somecomfort_homie.yml", 'r') as ymlfile:
+with open("somecomfort_homie.yml", 'r') as ymlfile:
     cfg = yaml.full_load(ymlfile)
 
 try:
