@@ -25,5 +25,5 @@ setuptools.setup(name='Somecomfort Homie 3',
         'pyyaml',
         'timer3'
     ],
-    scripts=['somecomfort_homie_start.py'],
+    scripts=['/usr/local/bin/somecomfort_homie_start.py'],
 )

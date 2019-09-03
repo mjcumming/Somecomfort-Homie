@@ -115,3 +115,6 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+somecomcort_test.py
+.vscode/arduino.json
+.vscode/c_cpp_properties.json
