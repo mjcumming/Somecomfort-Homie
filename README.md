@@ -1,6 +1,6 @@
 # Somecomfort Homie
 
-Homie 3 implementation of Honeywell Total Connect Comfort for North American models
+Homie 4 implementation of Honeywell Total Connect Comfort for North American models
 
 Uses the somecomfort library (https://github.com/kk7ds/somecomfort)
 
