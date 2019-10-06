@@ -1,2 +1,2 @@
-name="Somecomfort Homie 3"
-__version__ = "0.1.4"
+name="Somecomfort Homie 4"
+__version__ = "0.1.6"

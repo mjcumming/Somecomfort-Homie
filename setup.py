@@ -4,9 +4,9 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 
-setuptools.setup(name='Somecomfort Homie 3',
-      version='0.1.4',
-      description='Homie 3 for Honeywell Total Comfort North America',
+setuptools.setup(name='Somecomfort Homie 4',
+      version='0.1.6',
+      description='Homie 4 for Honeywell Total Comfort North America',
       author='Michael Cumming',
       author_email='mike@4831.com',
       long_description=long_description,
@@ -20,10 +20,10 @@ setuptools.setup(name='Somecomfort Homie 3',
             "Operating System :: OS Independent",
       ],      
     install_requires=[
-        'Homie3',
+        'Homie4',
         'somecomfort',
         'pyyaml',
         'timer3'
     ],
-    scripts=['/usr/local/bin/somecomfort_homie_start.py'],
+    scripts=['somecomfort_homie_start.py'],
 )

@@ -7,7 +7,7 @@ Uses the somecomfort library (https://github.com/kk7ds/somecomfort)
 Install using 
 
 ```
-pip install Somecomfort-Homie-3
+pip install Somecomfort-Homie-4
 ```
 
 To start as a service on raspbian 
