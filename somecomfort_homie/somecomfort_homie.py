@@ -1,11 +1,10 @@
 #!/usr/bin/env python
 
-import time
 import somecomfort
 import timer3
 import sys
 
-from homie_device.device_honeywell_thermostat import Device_Honeywell_Thermostat
+from .homie_device.device_honeywell_thermostat import Device_Honeywell_Thermostat
 
 import logging
 logger = logging.getLogger(__name__)

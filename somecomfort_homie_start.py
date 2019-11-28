@@ -3,7 +3,7 @@
 import time
 import yaml 
 
-from somecomfort_homie import Somecomfort_Homie
+from somecomfort_homie.somecomfort_homie import Somecomfort_Homie
 
 with open("somecomfort_homie.yml", 'r') as ymlfile:
     cfg = yaml.full_load(ymlfile)
