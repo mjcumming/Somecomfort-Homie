@@ -18,7 +18,7 @@ class Somecomfort_Homie(object):
 
     thermostats = {}
 
-    def __init__(self, username=None, password=None, refresh_interval=3, homie_settings=None, mqtt_settings=None):
+    def __init__(self, username=None, password=None, refresh_interval=5, homie_settings=None, mqtt_settings=None):
         assert username
         assert password
         assert mqtt_settings
