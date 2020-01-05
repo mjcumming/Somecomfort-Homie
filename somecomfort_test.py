@@ -4,6 +4,7 @@ import time
 import somecomfort
 import timer3
 import sys
+import requests
 
 import logging
 logger = logging.getLogger(__name__)
@@ -39,9 +40,11 @@ class Somecomfort_Homie(object):
             self.client = somecomfort.SomeComfort(self.username,self.password)
             logging.info('Somecomfort connected to user account {}'.format(self.username))
             self._add_devices()
+            return True
         except:
-            logging.info('Somecomfort unable to connect to user account {}, error {}'.format(self.username,sys.exc_info()[0]))
+            logging.warning('Somecomfort unable to connect to user account {}, error {}'.format(self.username,sys.exc_info()[0]))
             self.client = None
+            return False
 
     def _add_devices(self):
         for l_name, location in self.client.locations_by_id.items():
@@ -52,15 +55,23 @@ class Somecomfort_Homie(object):
                 print('Device {}'.format(device.raw_ui_data))
                 print('Device {}'.format(device.raw_fan_data))
                 print('Device {}'.format(device.raw_dr_data))
-                #self.devices [key] = device
+                self.devices [key] = device
                 #self._print_device(device)
 
     def _refresh(self):
-        if self.client:
-            for key,device in self.devices:
+        print ("REFRESH")
+        for key,device in self.devices.items():
+            try:
+                print ("Alive",device.is_alive)
                 device.refresh ()      
-        else:
-            self._connect()  
+            except (
+                somecomfort.client.APIRateLimited,
+                OSError,
+                requests.exceptions.ReadTimeout,
+            ) as exp:
+                logging.error("SomeComfort update failed, Retrying - Error: %s", exp)
+                self._connect()
+
 
     def _print_device(self,device):
         print (device.raw_ui_data)

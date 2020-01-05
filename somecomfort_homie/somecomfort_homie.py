@@ -3,6 +3,7 @@
 import somecomfort
 import timer3
 import sys
+import requests
 
 from .homie_device.device_honeywell_thermostat import Device_Honeywell_Thermostat
 
@@ -55,9 +56,13 @@ class Somecomfort_Homie(object):
                 self.thermostats [key] = thermostat
 
     def _refresh(self):
-        if self.client:
-            for key,thermostat in self.thermostats.items():
+        for key,thermostat in self.thermostats.items():
+            try:
                 thermostat.update ()      
-        else:
-            self._connect()  
-
+            except (
+                somecomfort.client.APIRateLimited,
+                OSError,
+                requests.exceptions.ReadTimeout,
+            ) as exp:
+                logging.error("SomeComfort update failed, Retrying - Error: %s", exp)
+                self._connect()
