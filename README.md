@@ -4,15 +4,21 @@ Homie 4 implementation of Honeywell Total Connect Comfort for North American mod
 
 Uses the somecomfort library (https://github.com/kk7ds/somecomfort)
 
-Install using 
+Install on Raspberry Pi
 
 ```
-pip install Somecomfort-Homie-4
+pip3 install Somecomfort-Homie-4
 ```
 
 To start as a service on raspbian 
 
-Create somecomfort_homie.yml in /etc using the following settings:
+Create somecomfort_homie.yml in /etc 
+
+'''
+sudo nano /etc/somecomfort_homie.yml
+'''
+
+Use the following settings:
 
 ```yaml
 somecomfort:
@@ -28,6 +34,11 @@ mqtt:
 
 Create somecomfort-homie.service in /etc/systemd/system
 
+'''
+sudo nano /etc/systemd/system/somecomfort-homie.service
+'''
+
+
 ```service
 [Unit]
 Description=Somecomfort Homie
@@ -42,3 +53,7 @@ Restart=on-abort
 [Install]
 WantedBy=multi-user.target
 ```
+
+Copy somecomfort_homie_start.py to /usr/local/bin/
+
+

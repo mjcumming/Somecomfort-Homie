@@ -68,7 +68,7 @@ class Device_Honeywell_Thermostat(Device_Base):
 
         self.start()
 
-        self.update()
+        #self.update()
 
     def get_hold_mode(self): # returns string representation of hold
         if self.tcc_device.hold_cool == True: 

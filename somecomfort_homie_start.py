@@ -5,15 +5,21 @@ import yaml
 
 from somecomfort_homie.somecomfort_homie import Somecomfort_Homie
 
-with open("somecomfort_homie.yml", 'r') as ymlfile:
-    cfg = yaml.full_load(ymlfile)
+def start ():
 
-try:
-    
-    sch = Somecomfort_Homie(username=cfg['somecomfort'] ['username'],password=cfg['somecomfort'] ['password'],mqtt_settings=cfg['mqtt'])
-    
-    while True:
-        time.sleep(10)
+    with open("somecomfort_homie.yml", 'r') as ymlfile:
+        cfg = yaml.full_load(ymlfile)
 
-except (KeyboardInterrupt, SystemExit):
-    print("Quitting.")     
+    try:
+        
+        sch = Somecomfort_Homie(username=cfg['somecomfort'] ['username'],password=cfg['somecomfort'] ['password'],mqtt_settings=cfg['mqtt'])
+        
+        while True:
+            time.sleep(10)
+
+    except (KeyboardInterrupt, SystemExit):
+        print("Quitting.")     
+
+
+if __name__ == "__main__":
+    start()    
