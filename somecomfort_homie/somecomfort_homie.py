@@ -4,12 +4,39 @@ import somecomfort
 import timer3
 import sys
 import requests
+import os
 
 from .homie_device.device_honeywell_thermostat import Device_Honeywell_Thermostat
-
 import logging
+from logging.handlers import TimedRotatingFileHandler
+
+import somecomfort_homie
+import homie
+
 logger = logging.getLogger(__name__)
-logging.basicConfig(level=logging.INFO)
+
+FORMATTER = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
+LOG_FILE = os.path.expanduser("~") + "/somecomforthomie.log"
+
+console_handler = logging.StreamHandler(sys.stdout)
+console_handler.setFormatter(FORMATTER)
+
+file_handler = TimedRotatingFileHandler(LOG_FILE, when="midnight")
+file_handler.setFormatter(FORMATTER)
+
+logger.addHandler(console_handler)
+logger.addHandler(file_handler)
+
+logging.basicConfig(level=logging.DEBUG,handlers=[file_handler,console_handler])
+
+HOMIE_SETTINGS = {
+    "update_interval": 60,
+    "implementation": "Somecomfort Homie {} Homie 4 Version {}".format(
+        somecomfort_homie.__version__,homie.__version__
+    ),
+    "fw_name": "Somecomfort",
+    "fw_version": '0.6.0',
+}
 
 
 
@@ -43,8 +70,8 @@ class Somecomfort_Homie(object):
             self.client = somecomfort.SomeComfort(self.username,self.password)
             logging.info('Somecomfort connected to user account {}'.format(self.username))
             self._add_devices()
-        except:
-            logging.info('Somecomfort unable to connect to user account {}, error {}'.format(self.username,sys.exc_info()[0]))
+        except Exception as exc:
+            logging.warning('Somecomfort unable to connect to user account {}, error {}'.format(self.username,exc), exc_info=True)
             self.client = None
 
     def _add_devices(self):
