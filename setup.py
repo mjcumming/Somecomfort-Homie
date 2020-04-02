@@ -6,7 +6,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name='Somecomfort Homie 4',
-    version='0.2.8',
+    version='0.2.9',
     description='Homie 4 for Honeywell Total Comfort North America',
     author='Michael Cumming',
     author_email='mike@4831.com',
@@ -26,7 +26,7 @@ setuptools.setup(
         'pyyaml',
         'timer3'
     ],
-    python_requires='!=3.5.*',
+    python_requires='>=3.5.*',
 #    entry_points={
 #        'console_scripts': [
 #            'somecomfort_homie_start = somecomfort_homie_start:main',
