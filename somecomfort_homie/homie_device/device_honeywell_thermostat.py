@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+import datetime
 
 from homie.device_base import Device_Base
 from homie.node.node_base import Node_Base
@@ -57,6 +58,12 @@ class Device_Honeywell_Thermostat(Device_Base):
         self.system_status = Property_String (node,id='systemstatus',name='System Status',value=tcc_device.equipment_output_status)
         node.add_property (self.system_status)
         
+        self.account_status = Property_String (node,id='accountstatus',name='Account Status',value='Connected')
+        node.add_property (self.account_status)
+
+        self.last_update = Property_String (node,id='lastupdate',name='Last Update',value=datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S"))
+        node.add_property (self.last_update)
+
         node = (Node_Base(self,'outside','Outside','status'))
         self.add_node (node)
 
@@ -90,6 +97,7 @@ class Device_Honeywell_Thermostat(Device_Base):
         self.system_status.value = self.tcc_device.equipment_output_status
         self.outside_temperature.value = self.tcc_device.outdoor_temperature
         self.outside_humidity.value = self.tcc_device.outdoor_humidity
+        self.last_update.value=datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
 
         if self.tcc_device.is_alive:
             self.state = 'ready'
