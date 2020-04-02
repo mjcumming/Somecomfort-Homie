@@ -15,7 +15,7 @@ def start ():
         sch = Somecomfort_Homie(username=cfg['somecomfort'] ['username'],password=cfg['somecomfort'] ['password'],mqtt_settings=cfg['mqtt'])
         
         while True:
-            time.sleep(10)
+            time.sleep(1)
 
     except (KeyboardInterrupt, SystemExit):
         print("Quitting.")     

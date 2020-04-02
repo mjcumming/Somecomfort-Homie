@@ -101,6 +101,7 @@ class Somecomfort_Homie(object):
                 try:
                     thermostat.update ()      
                     self.account_device.last_update.value=datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+                    thermostat.account_status.value="Connected"
 
                 except (
                     somecomfort.client.APIRateLimited,
