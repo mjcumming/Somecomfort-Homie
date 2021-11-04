@@ -74,6 +74,8 @@ class Somecomfort_Homie(object):
         self.timer = timer3.apply_interval(self.refresh_interval * 60 * 1000, update, priority=0)
 
     def _connect(self):
+        logging.info('Somecomfort connecting to user account {}'.format(self.username))
+        
         try:
             self.client = somecomfort.SomeComfort(self.username,self.password)
             logging.info('Somecomfort connected to user account {}'.format(self.username))

@@ -7,7 +7,7 @@ from somecomfort_homie.somecomfort_homie import Somecomfort_Homie
 
 def start ():
 
-    with open("somecomfort_homie.yml", 'r') as ymlfile:
+    with open("\etc\somecomfort_homie.yml", 'r') as ymlfile:
         cfg = yaml.full_load(ymlfile)
 
     try:
