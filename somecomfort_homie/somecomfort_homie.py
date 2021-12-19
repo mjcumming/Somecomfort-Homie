@@ -24,7 +24,7 @@ LOG_FILE = os.path.expanduser("~") + "/somecomforthomie.log"
 console_handler = logging.StreamHandler(sys.stdout)
 console_handler.setFormatter(FORMATTER)
 
-file_handler = TimedRotatingFileHandler(LOG_FILE, when="midnight")
+file_handler = TimedRotatingFileHandler(LOG_FILE, when="midnight",backupCount=5)
 file_handler.setFormatter(FORMATTER)
 
 logger.addHandler(console_handler)
