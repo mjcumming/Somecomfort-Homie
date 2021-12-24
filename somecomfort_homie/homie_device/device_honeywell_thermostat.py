@@ -15,6 +15,8 @@ FAN_MODES = ['auto', 'on', 'circulate']
 SYSTEM_MODES = ['heat', 'off', 'cool','auto']
 HOLD_MODES = ['schedule', 'temporary', 'permanent'] 
 
+Default_Temporay_Hold_Hours = 4
+
 
 class Device_Honeywell_Thermostat(Device_Base):
 
@@ -43,7 +45,8 @@ class Device_Honeywell_Thermostat(Device_Base):
         self.fan_mode = Property_Enum (node,id='fanmode',name='Fan Mode',data_format=','.join(FAN_MODES),value=tcc_device.fan_mode,set_value = lambda value: self.set_fan_mode(value) )
         node.add_property (self.fan_mode)
 
-        self.hold_mode = Property_Enum (node,id='holdmode',name='Hold Mode',data_format=','.join(HOLD_MODES),value=self.get_hold_mode(),set_value = lambda value: self.set_hold_mode(value) )
+#        self.hold_mode = Property_Enum (node,id='holdmode',name='Hold Mode',data_format=','.join(HOLD_MODES),value=self.get_hold_mode(),set_value = lambda value: self.set_hold_mode(value) )
+        self.hold_mode = Property_String (node,id='holdmode',name='Hold Mode',settable=True,value=self.get_hold_mode(),set_value = lambda value: self.set_hold_mode(value) )
         node.add_property (self.hold_mode)
 
         node = (Node_Base(self,'status','Status','status'))
@@ -83,13 +86,15 @@ class Device_Honeywell_Thermostat(Device_Base):
         elif self.tcc_device.hold_cool == False:
             return 'schedule'
         else:
-            return 'temporary'
+            if isinstance(self.tcc_device.hold_cool , datetime.time):
+                return self.tcc_device.hold_cool.strftime("Hold Until %H:%M")
+                #return 'temporary'
 
     def update(self):
         self.tcc_device.refresh()
         self.temperture.value = self.tcc_device.current_temperature
         self.humidity.value = self.tcc_device.current_humidity
-        self.hold_mode = self.get_hold_mode()
+        self.hold_mode.value = self.get_hold_mode()
         self.fan_mode.value = self.tcc_device.fan_mode
         self.system_mode.value = self.tcc_device.system_mode
         self.heat_setpoint.value = self.tcc_device.setpoint_heat
@@ -121,12 +126,24 @@ class Device_Honeywell_Thermostat(Device_Base):
         self.fan_mode = value
         
     def set_hold_mode(self,value):
+        print ("set hold mold {}".format(value))
         if value == 'permanent':
             self.tcc_device.hold_heat = True
             self.tcc_device.hold_cool = True
         elif value == 'schedule':
             self.tcc_device.hold_heat = False
             self.tcc_device.hold_cool = False
+        elif value == 'temporary':
+            expire_time=datetime.datetime.now() + datetime.timedelta(hours=Default_Temporay_Hold_Hours)
+            self.tcc_device.hold_heat = expire_time
+            #self.tcc_device.hold_cool = False
         else:
-            print('unknown hold mode: ',value)
+            try:
+                expire_time=datetime.datetime.strptime(value, '%H:%M')           
+                self.tcc_device.hold_heat = expire_time.time()
+                self.hold_mode.value = expire_time.strftime("Hold Until %H:%M")                
+            except Exception as e:
+                print('unknown hold mode: ',value)
+                print (e)
+                self.hold_mode.value="Error"
         
